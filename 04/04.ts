@@ -5,12 +5,12 @@ import TOOLS from "tools";
 export function solveA(fileName: string, day: string): number {
 	const data = TOOLS.readData(fileName, day);
 	const rooms = praseInput(data);
-
 	return validateRooms(rooms);
 }
 export function solveB(fileName: string, day: string): number {
 	const data = TOOLS.readData(fileName, day);
-	return 0;
+	const rooms = praseInput(data);
+	return decryptRooms(rooms);
 }
 
 type Room = { name: string; id: number; checksum: string };
@@ -29,8 +29,7 @@ function praseInput(data: string): Room[] {
 
 	return rooms;
 }
-
-function validateRooms(rooms: Room[]) {
+function validateRooms(rooms: Room[]): number {
 	let idSum = 0;
 
 	for (const room of rooms) {
@@ -53,4 +52,21 @@ function validateRooms(rooms: Room[]) {
 	}
 
 	return idSum;
+}
+function decryptRooms(rooms: Room[]): number {
+	function shiftChar(char: string, id: number): string {
+		return String.fromCharCode(((char.charCodeAt(0) - 97 + id) % 26) + 97);
+	}
+
+	for (const room of rooms) {
+		const decrptedName = room.name.replace(/./g, ($) => {
+			return $ === "-" ? " " : shiftChar($, room.id);
+		});
+
+		if (/north|pole|object/i.test(decrptedName)) {
+			return room.id;
+		}
+	}
+
+	throw Error("North Pole Object Storage not found");
 }
