@@ -1,5 +1,7 @@
-## Advent of Code 2016
+## Advent of Code 2018
 
-**Link**: [Advent of Code 2016](https://adventofcode.com/2016)
+**Link**: [Advent of Code 2018](https://adventofcode.com/2018)
 
 **Langauge**: Typescript
+
+**Runtime**: Deno

@@ -1,5 +1,5 @@
 // Imports
-import TOOLS from "../00/tools";
+import TOOLS from "tools";
 
 //Solutions
 export function solveA(fileName: string, day: string): number {
@@ -11,7 +11,4 @@ export function solveB(fileName: string, day: string): number {
 	return 0;
 }
 
-//Run
-solveA("example_a", "11");
-
-//Functions
+// Functions

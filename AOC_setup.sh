@@ -9,17 +9,19 @@ fi
 # Use the provided folder name
 folder_name="$1"
 
-# Create the folder
-mkdir "$folder_name"
+# Template files
+solution_file="$PWD/00/00.ts"
+test_file="$PWD/00/00.test.ts"
 
-# Change into the folder
-cd "$folder_name"
+# Create and access new folder
+mkdir "$folder_name" && cd "$folder_name"
 
-# Create some sample files
-touch $1.test.ts
-touch $1.ts 
-touch example_a.txt
-touch example_b.txt
-touch input.txt
+# Add relevant files
+cp "$solution_file" "./$folder_name.ts"
+cp "$test_file" "./$folder_name.test.ts"
+touch example_a.txt example_b.txt input.txt
+
+# Update day for templates
+sed -i "/..\/00\/tools/! s/00/$folder_name/g" "$folder_name.ts" "$folder_name.test.ts"
 
 echo "Folder '$folder_name' and files created successfully."
