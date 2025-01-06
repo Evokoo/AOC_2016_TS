@@ -5,7 +5,7 @@ import { solveA, solveB } from "./00.ts";
 
 const currentDay = path.basename(Deno.cwd());
 
-describe(`AOC 2018 - Day ${currentDay}`, () => {
+describe(`AOC 2016 - Day ${currentDay}`, () => {
 	describe("Part A", () => {
 		it("Example", () => {
 			expect(solveA("example_a", currentDay)).toBe(0);
