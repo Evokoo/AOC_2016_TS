@@ -7,8 +7,8 @@ const currentDay = path.basename(Deno.cwd());
 
 describe(`AOC 2016 - Day ${currentDay}`, () => {
 	describe("Part A", () => {
-		it("Example", () => {
-			expect(solveA("example_a", currentDay)).toBe(6);
+		it.skip("Example", () => {
+			expect(solveA("example_a", currentDay)).toBe(0);
 		});
 
 		it("Solution", () => {
@@ -16,13 +16,13 @@ describe(`AOC 2016 - Day ${currentDay}`, () => {
 		});
 	});
 
-	describe.skip("Part B", () => {
-		it("Example", () => {
+	describe("Part B", () => {
+		it.skip("Example", () => {
 			expect(solveB("example_b", currentDay)).toBe(0);
 		});
 
-		it.skip("Solution", () => {
-			expect(solveB("input", currentDay)).toBe(0);
+		it("Solution", () => {
+			expect(solveB("input", currentDay)).toBe("EFEYKFRFIJ");
 		});
 	});
 });

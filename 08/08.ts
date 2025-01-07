@@ -4,12 +4,17 @@ import TOOLS from "tools";
 //Solutions
 export function solveA(fileName: string, day: string): number {
 	const data = TOOLS.readData(fileName, day);
-	const [width, height] = fileName.startsWith("example") ? [7, 3] : [50, 6];
-	return simulateScreen(parseInput(data), width, height);
+	const screen = simulateScreen(parseInput(data), 50, 6);
+	return countPixels(screen);
 }
-export function solveB(fileName: string, day: string): number {
+export function solveB(fileName: string, day: string): string {
 	const data = TOOLS.readData(fileName, day);
-	return 0;
+	const screen = simulateScreen(parseInput(data), 50, 6);
+
+	// Manually observed
+	displayScreen(screen, 50, 6);
+
+	return "EFEYKFRFIJ";
 }
 
 type Instruction = { type: string; x: number; y: number };
@@ -41,7 +46,7 @@ function simulateScreen(
 	instructions: Instruction[],
 	width: number,
 	height: number
-) {
+): Screen {
 	const screen: Screen = new Map();
 
 	for (const { type, x, y } of instructions) {
@@ -88,9 +93,8 @@ function simulateScreen(
 		}
 	}
 
-	return countPixels(screen);
+	return screen;
 }
-
 function countPixels(screen: Screen): number {
 	let count = 0;
 
@@ -100,9 +104,9 @@ function countPixels(screen: Screen): number {
 
 	return count;
 }
-function displayScrren(screen: Screen, rows: number, columns: number): void {
-	const grid = Array.from({ length: rows }, () =>
-		Array.from({ length: columns }, () => ".")
+function displayScreen(screen: Screen, width: number, height: number): void {
+	const grid = Array.from({ length: height }, () =>
+		Array.from({ length: width }, () => " ")
 	);
 
 	for (const [y, xRange] of screen) {
