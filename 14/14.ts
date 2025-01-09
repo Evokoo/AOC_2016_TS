@@ -50,17 +50,15 @@ function generateValidKeys(salt: string, stretch: boolean = false) {
 
 	return validKeys.at(-1)!.index;
 }
-
-function generateHash(salt: string, index: number): string {
-	return CRYPTO.createHash("md5").update(`${salt}${index}`).digest("hex");
+function generateHash(input: string): string {
+	return CRYPTO.createHash("md5").update(input).digest("hex");
 }
-
 function generateNewKey(salt: string, index: number, stretch: boolean): Key {
-	let hash = generateHash(salt, index);
+	let hash = generateHash(`${salt}${index}`);
 
 	if (stretch) {
 		for (let i = 0; i < 2016; i++) {
-			hash = CRYPTO.createHash("md5").update(hash).digest("hex");
+			hash = generateHash(hash);
 		}
 	}
 
@@ -69,7 +67,6 @@ function generateNewKey(salt: string, index: number, stretch: boolean): Key {
 
 	return { index, hash, triple, quintuple };
 }
-
 function findMatch(hash: string, size: number): string {
 	const re = RegExp(`(.)\\1{${size - 1}}`);
 	return (hash.match(re) || [""])[0];
