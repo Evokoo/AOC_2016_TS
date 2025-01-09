@@ -9,7 +9,7 @@ export function solveA(fileName: string, day: string): number {
 }
 export function solveB(fileName: string, day: string): number {
 	const data = TOOLS.readData(fileName, day);
-	return 0;
+	return moveItems(parseInput(data, true));
 }
 
 type Layout = Map<number, Set<string>>;
@@ -21,7 +21,7 @@ type State = {
 };
 
 // Functions
-function parseInput(data: string): Items {
+function parseInput(data: string, extraParts: boolean = false): Items {
 	const items: Items = { layout: new Map(), itemCount: 0 };
 
 	for (const [index, line] of data.split("\n").entries()) {
@@ -36,9 +36,19 @@ function parseInput(data: string): Items {
 		items.layout.set(index, floor);
 	}
 
+	if (extraParts) {
+		const floor = items.layout.get(0)!;
+
+		for (const item of ["EL-G", "EL-M", "DI-G", "DI-M"]) {
+			items.itemCount++;
+			floor.add(item);
+		}
+
+		items.layout.set(0, floor);
+	}
+
 	return items;
 }
-
 function moveItems({ layout, itemCount }: Items): number {
 	const queue: BinaryHeap<State> = new BinaryHeap((a, b) => a.cost - b.cost);
 	const seen: Set<string> = new Set();
@@ -64,7 +74,6 @@ function moveItems({ layout, itemCount }: Items): number {
 
 	throw Error("Moves Count not found");
 }
-
 function allItemsMoved({ level, floors }: State, target: number): boolean {
 	return level === 3 && floors.get(3)!.size === target;
 }
