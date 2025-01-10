@@ -129,11 +129,34 @@ function nthIteration<T>(array: T[], target: number): T {
 	return sequence.pattern[nth];
 }
 
+function generateStringPermutations(inputString: string): string[] {
+	const result: Set<string> = new Set();
+
+	function permute(currentString: string, remainingChars: string) {
+		if (remainingChars.length === 0) {
+			result.add(currentString);
+			return;
+		}
+
+		for (let i = 0; i < remainingChars.length; i++) {
+			const char = remainingChars[i];
+			const newString = currentString + char;
+			const newRemainingChars =
+				remainingChars.slice(0, i) + remainingChars.slice(i + 1);
+			permute(newString, newRemainingChars);
+		}
+	}
+
+	permute("", inputString);
+	return [...result];
+}
+
 export default {
 	readData,
 	arrLCM,
 	derangement,
 	generatePermutations,
+	generateStringPermutations,
 	manhattanDistance,
 	euclideanDistance,
 	nthIteration,
