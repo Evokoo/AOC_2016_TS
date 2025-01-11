@@ -108,8 +108,6 @@ function runCommands(commands: Command[], eggs: number) {
 		}
 
 		index += increment;
-
-		console.log(registers);
 	}
 
 	return registers["a"];
