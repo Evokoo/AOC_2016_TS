@@ -33,7 +33,6 @@ function parseInput(data: string): Nodes {
 
 	return fileList;
 }
-
 function countNodePairs(nodes: Nodes): number {
 	const allNodes = [...nodes];
 	let pairs = 0;
